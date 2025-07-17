@@ -1,0 +1,140 @@
+services:
+  os-node-01:
+    restart: always
+    image: opensearchproject/opensearch:3.1.0
+    environment:
+      cluster.name: ${OPENSEARCH_CLUSTER_NAME}
+      OPENSEARCH_JAVA_OPTS: "-Xms1024m -Xmx1024m"
+      node.name: os-node-01
+      discovery.seed_hosts: os-node-01,os-node-02,os-node-03
+      cluster.initial_master_nodes: os-node-01,os-node-02,os-node-03
+      plugins.security.ssl.transport.pemkey_filepath: certificates/os-node-01/os-node-01.key
+      plugins.security.ssl.transport.pemcert_filepath: certificates/os-node-01/os-node-01.pem
+      plugins.security.ssl.http.pemkey_filepath: certificates/os-node-01/os-node-01.key
+      plugins.security.ssl.http.pemcert_filepath: certificates/os-node-01/os-node-01.pem
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+      JAVA_HOME: /usr/share/opensearch/jdk
+      bootstrap.memory_lock: "true"
+      network.host: "0.0.0.0"
+      cluster.routing.allocation.disk.threshold_enabled: true
+      cluster.routing.allocation.disk.watermark.low: 93%
+      cluster.routing.allocation.disk.watermark.high: 95%
+      http.detailed_errors.enabled: ${OPENSEARCH_DETAILED_ERRORS_ENABLED}
+      plugins.security.password.hashing.algorithm: ${OPENSEARCH_PASSWORD_HASHING_ALGORITHM}
+      plugins.security.password.hashing.bcrypt.rounds: ${OPENSEARCH_BCRYPT_ROUNDS}
+      search.default_search_timeout: ${OPENSEARCH_SEARCH_TIMEOUT}
+      search.default_allow_partial_results: ${OPENSEARCH_SEARCH_ALLOW_PARTIALS}
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+    ulimits: 
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - "./config/opensearch.yml:/usr/share/opensearch/config/opensearch.yml"
+      - "./config/opensearch-security/internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml"
+      - "./config/opensearch-security/tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml"
+      - "os-data1:/usr/share/opensearch/data"
+      - "./certs:/usr/share/opensearch/config/certificates:ro"
+    ports:
+      - 9200:9200
+      - 9600:9600
+  
+  os-node-02:
+    restart: always
+    image: opensearchproject/opensearch:3.1.0
+    environment:
+      cluster.name: ${OPENSEARCH_CLUSTER_NAME}
+      OPENSEARCH_JAVA_OPTS: "-Xms1024m -Xmx1024m"
+      node.name: os-node-02
+      discovery.seed_hosts: os-node-01,os-node-02,os-node-03
+      cluster.initial_master_nodes: os-node-01,os-node-02,os-node-03
+      plugins.security.ssl.transport.pemkey_filepath: certificates/os-node-02/os-node-02.key
+      plugins.security.ssl.transport.pemcert_filepath: certificates/os-node-02/os-node-02.pem
+      plugins.security.ssl.http.pemkey_filepath: certificates/os-node-02/os-node-02.key
+      plugins.security.ssl.http.pemcert_filepath: certificates/os-node-02/os-node-02.pem
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+      JAVA_HOME: /usr/share/opensearch/jdk
+      bootstrap.memory_lock: "true"
+      network.host: "0.0.0.0"
+      cluster.routing.allocation.disk.threshold_enabled: true
+      cluster.routing.allocation.disk.watermark.low: 93%
+      cluster.routing.allocation.disk.watermark.high: 95%
+      http.detailed_errors.enabled: ${OPENSEARCH_DETAILED_ERRORS_ENABLED}
+      plugins.security.password.hashing.algorithm: ${OPENSEARCH_PASSWORD_HASHING_ALGORITHM}
+      plugins.security.password.hashing.bcrypt.rounds: ${OPENSEARCH_BCRYPT_ROUNDS}
+      search.default_search_timeout: ${OPENSEARCH_SEARCH_TIMEOUT}
+      search.default_allow_partial_results: ${OPENSEARCH_SEARCH_ALLOW_PARTIALS}
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+    ulimits: 
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - "./config/opensearch.yml:/usr/share/opensearch/config/opensearch.yml"
+      - "./config/opensearch-security/internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml"
+      - "./config/opensearch-security/tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml"
+      - "os-data2:/usr/share/opensearch/data"
+      - "./certs:/usr/share/opensearch/config/certificates:ro"
+  
+  os-node-03:
+    restart: always
+    image: opensearchproject/opensearch:3.1.0
+    environment:
+      cluster.name: ${OPENSEARCH_CLUSTER_NAME}
+      OPENSEARCH_JAVA_OPTS: "-Xms1024m -Xmx1024m"
+      node.name: os-node-03
+      discovery.seed_hosts: os-node-01,os-node-02,os-node-03
+      cluster.initial_master_nodes: os-node-01,os-node-02,os-node-03
+      plugins.security.ssl.transport.pemkey_filepath: certificates/os-node-03/os-node-03.key
+      plugins.security.ssl.transport.pemcert_filepath: certificates/os-node-03/os-node-03.pem
+      plugins.security.ssl.http.pemkey_filepath: certificates/os-node-03/os-node-03.key
+      plugins.security.ssl.http.pemcert_filepath: certificates/os-node-03/os-node-03.pem
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+      JAVA_HOME: /usr/share/opensearch/jdk
+      bootstrap.memory_lock: "true"
+      network.host: "0.0.0.0"
+      cluster.routing.allocation.disk.threshold_enabled: true
+      cluster.routing.allocation.disk.watermark.low: 93%
+      cluster.routing.allocation.disk.watermark.high: 95%
+      http.detailed_errors.enabled: ${OPENSEARCH_DETAILED_ERRORS_ENABLED}
+      plugins.security.password.hashing.algorithm: ${OPENSEARCH_PASSWORD_HASHING_ALGORITHM}
+      plugins.security.password.hashing.bcrypt.rounds: ${OPENSEARCH_BCRYPT_ROUNDS}
+      search.default_search_timeout: ${OPENSEARCH_SEARCH_TIMEOUT}
+      search.default_allow_partial_results: ${OPENSEARCH_SEARCH_ALLOW_PARTIALS}
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+    ulimits: 
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - "./config/opensearch.yml:/usr/share/opensearch/config/opensearch.yml"
+      - "./config/opensearch-security/internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml"
+      - "./config/opensearch-security/tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml"
+      - "os-data3:/usr/share/opensearch/data"
+      - "./certs:/usr/share/opensearch/config/certificates:ro"
+
+  opensearch-dashboards:
+    restart: always
+    image: opensearchproject/opensearch-dashboards:3.1.0
+    environment:
+      OPENSEARCH_HOSTS: '["https://os-node-01:9200","https://os-node-02:9200","https://os-node-03:9200"]'
+      OPENSEARCH_USERNAME: kibanaserver
+      OPENSEARCH_PASSWORD: ${OPENSEARCH_KIBANASERVER_PASSWORD}
+      SERVER_NAME: os-dashboards
+      SERVER_HOST: "0.0.0.0"
+
+      # SSL configuration
+      OPENSEARCH_SSL_CERTIFICATEAUTHORITIES: '["/usr/share/opensearch-dashboards/config/certificates/ca/ca.pem"]'
+      OPENSEARCH_SSL_VERIFICATIONMODE: certificate
+      SERVER_SSL_ENABLED: true
+      SERVER_SSL_CERTIFICATE: "/usr/share/opensearch-dashboards/config/certificates/os-dashboards/os-dashboards.pem"
+      SERVER_SSL_KEY: "/usr/share/opensearch-dashboards/config/certificates/os-dashboards/os-dashboards.key"
+    volumes:
+      - "./certs:/usr/share/opensearch-dashboards/config/certificates:ro"
+    ports:
+      - 5601:5601
+
+volumes:
+  os-data1:
+  os-data2:
+  os-data3:
