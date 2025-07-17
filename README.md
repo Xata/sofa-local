@@ -39,20 +39,12 @@ https://localhost:5601
 ## Environment Setup
 You must edit the .env file with your configuration. Otherwise it'll use defaults.
 
-## How to Contribute
-We welcome contributions from all MSU Denver community members! Here's how you can help:
-
 ### Priority Areas
 - Infrastructure: Improve Docker configurations and deployment scripts
 - Security: Enhance security configurations and best practices
 - Documentation: Create guides, tutorials, and API documentation
 - Testing: Develop automated tests and validation scripts
 - Integration: Connect with other cybersecurity tools and platforms
-
-### Getting Started as a Contributor
-- Check the issues: Look for issues labeled good-first-issue or help-wanted
-- Set up your development environment: Follow the Quick Start guide above
-- Read our contributing guidelines: See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 
