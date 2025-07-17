@@ -1,4 +1,4 @@
-# SOFA
+# sofa-local
 
 Welcome to the sofa-local repository. This project provides a Docker based deployment solution for OpenSearch clusters, designed to support cybersecurity research and educational activities within our organization.
 
